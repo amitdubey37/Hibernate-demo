@@ -1,21 +1,50 @@
 package hibernate.domains;
 
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Author {
     @Id
     Integer id;
 
+    public void setSubjects(Collection<String> subjects) {
+        this.subjects = subjects;
+    }
+
+    @GenericGenerator(name = "sequence-gen",strategy = "sequence")
+    @CollectionId(columns = {@Column(name = "subject_id")},
+            generator = "sequence-gen",type = @Type(type = "long"))
+    @JoinTable(name = "author_subjects",
+            joinColumns = @JoinColumn(name = "author_id"))
+    @ElementCollection(fetch = FetchType.EAGER)
+    Collection<String> subjects  = new HashSet<String>();
     @Column( name = "NAME")
     String firstName;
+
+
+    public void setSubjects(Set<String> subjects) {
+        this.subjects = subjects;
+    }
+
     @Temporal(TemporalType.DATE)
     Date dob;
 
+    public Collection<String> getSubjects() {
+        return subjects;
+    }
+
     public Date getDob() {
         return dob;
+
     }
 
     public Address getCurrentAddress() {
