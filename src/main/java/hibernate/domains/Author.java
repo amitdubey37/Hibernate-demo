@@ -13,8 +13,21 @@ import java.util.Set;
 
 @Entity
 public class Author {
-    @Id
+    @Id @GeneratedValue(strategy =GenerationType.SEQUENCE )
     Integer id;
+
+    public Collection<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Collection<Book> books) {
+        this.books = books;
+    }
+
+    @OneToMany
+    @JoinTable(joinColumns = @JoinColumn(name="author")
+            ,inverseJoinColumns = @JoinColumn(name = "book_id"))
+    Collection<Book> books= new HashSet<Book>();
 
     public void setSubjects(Collection<String> subjects) {
         this.subjects = subjects;
