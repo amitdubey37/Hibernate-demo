@@ -24,9 +24,7 @@ public class Author {
         this.books = books;
     }
 
-    @OneToMany
-    @JoinTable(joinColumns = @JoinColumn(name="author")
-            ,inverseJoinColumns = @JoinColumn(name = "book_id"))
+    @ManyToMany
     Collection<Book> books= new HashSet<Book>();
 
     public void setSubjects(Collection<String> subjects) {

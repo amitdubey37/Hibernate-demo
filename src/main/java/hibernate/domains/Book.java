@@ -1,9 +1,8 @@
 package hibernate.domains;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Amit Dubey on 21/1/17.
@@ -13,9 +12,19 @@ public class Book {
     String bookName;
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     Integer bookId;
+    @ManyToMany(mappedBy = "books")
+    List<Author> authors = new ArrayList<Author>();
 
     public Integer getBookId() {
         return bookId;
+    }
+
+    public List<Author> getAuthorList() {
+        return authors;
+    }
+
+    public void setAuthorList(List<Author> authors) {
+        this.authors = authors;
     }
 
     public void setBookId(Integer bookId) {
