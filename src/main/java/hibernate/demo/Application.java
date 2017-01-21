@@ -1,5 +1,6 @@
 package hibernate.demo;
 
+import hibernate.domains.Address;
 import hibernate.domains.Author;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,12 +14,24 @@ public class Application {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        Address currentAddress = new Address();
+        currentAddress.setLocation("New Delhi");
+        currentAddress.setStreetNumber(131);
+        currentAddress.setState("Delhi");
+
+        Address permanent = new Address();
+        permanent.setLocation("Mumbai");
+        permanent.setStreetNumber(1314);
+        permanent.setState("Maharastra");
+
         Author author1 = new Author();
         author1.setId(1);
         author1.setAge(20);
         author1.setFirstName("Amit");
         author1.setLastName("Dubey");
         author1.setDob(new Date());
+        author1.setCurrentAddress(currentAddress);
+        author1.setPermanentAddress(permanent);
         session.save(author1);
         session.getTransaction().commit();
         session.close();

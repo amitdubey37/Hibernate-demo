@@ -18,6 +18,31 @@ public class Author {
         return dob;
     }
 
+    public Address getCurrentAddress() {
+        return currentAddress;
+    }
+
+    public void setCurrentAddress(Address currentAddress) {
+        this.currentAddress = currentAddress;
+    }
+
+    public Address getPermanentAddress() {
+        return permanentAddress;
+    }
+
+    public void setPermanentAddress(Address permanentAddress) {
+        this.permanentAddress = permanentAddress;
+    }
+    @Embedded
+    Address currentAddress;
+    @AttributeOverrides({
+            @AttributeOverride(name = "location", column = @Column(name = "Base_Location")),
+            @AttributeOverride(name = "streetNumber", column = @Column(name = "Street")),
+            @AttributeOverride(name = "state", column = @Column(name = "stat"))
+    })
+    @Embedded
+    Address permanentAddress;
+
     public void setDob(Date dob) {
         this.dob = dob;
     }
