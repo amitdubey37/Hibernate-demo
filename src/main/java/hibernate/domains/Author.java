@@ -1,14 +1,26 @@
 package hibernate.domains;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Author {
     @Id
     Integer id;
+
+    @Column( name = "NAME")
     String firstName;
+    @Temporal(TemporalType.DATE)
+    Date dob;
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
 
     public Integer getId() {
         return id;
@@ -18,7 +30,7 @@ public class Author {
         this.id = id;
     }
 
-
+    @Transient
     String lastName;
     Integer age;
 

@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.Date;
+
 public class Application {
     public static void main(String[] args) {
 
@@ -16,6 +18,7 @@ public class Application {
         author1.setAge(20);
         author1.setFirstName("Amit");
         author1.setLastName("Dubey");
+        author1.setDob(new Date());
         session.save(author1);
         session.getTransaction().commit();
         session.close();
